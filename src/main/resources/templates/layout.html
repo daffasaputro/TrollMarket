@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Troll Market</title>
+</head>
+<body>
+<div class="container">
+    <nav th:fragment="nav">
+        <div class="logo">
+            <h1>Troll<span>Market</span></h1>
+        </div>
+        <div class="nav-menu">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/account/index}"
+               th:unless="${#strings.contains(#authentication.getAuthorities(), 'Admin')}">Profile</a>
+            <a th:href="@{/product/shop}"
+               th:if="${#strings.contains(#authentication.getAuthorities(), 'Buyer')}">Shop</a>
+            <a th:href="@{/product/merchandise}"
+               th:if="${#strings.contains(#authentication.getAuthorities(), 'Seller')}">Merchandise</a>
+            <a th:href="@{/shipper/index}"
+               th:if="${#strings.contains(#authentication.getAuthorities(), 'Admin')}">Shipment</a>
+            <a th:href="@{/cart/index}"
+               th:if="${#strings.contains(#authentication.getAuthorities(), 'Buyer')}">My Cart</a>
+            <a th:href="@{/account/adminRegisterForm}"
+               th:if="${#strings.contains(#authentication.getAuthorities(), 'Admin')}">Admin</a>
+            <a th:href="@{/order/index}"
+               th:if="${#strings.contains(#authentication.getAuthorities(), 'Admin')}">History</a>
+        </div>
+        <div class="sign-out">
+            <form th:action="@{/logout}" method="post">
+                <div class="profile-section">
+                    <p th:text="${#authentication.getPrincipal().getUsername()}"></p>
+                    <p th:text="${#authentication.getAuthorities()[0]}"></p>
+                </div>
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
+    <footer th:fragment="footer">
+        <p>Copyright all rights reserved</p>
+    </footer>
+</div>
+</body>
+</html>

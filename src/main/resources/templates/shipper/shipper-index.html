@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Shipper</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <div class="user-list">
+            <h1 class="title">Shipper</h1>
+            <a class="insert-button">Add New Shipper</a>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Service</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="shipper : ${shipperDataDTO}">
+                        <td>
+                            <div class="action">
+                                <a class="action-button edit-button" th:attr="shipper-id=${shipper.shipperId}"
+                                   th:if="${shipper.cartDependencies == 0 && shipper.orderDependencies == 0}">Edit</a>
+                                <a class="disable-action-button"
+                                   th:if="${shipper.cartDependencies > 0 || shipper.orderDependencies > 0}">Edit</a>
+                                <a class="action-button"
+                                   th:href="@{/shipper/delete(shipperId = ${shipper.shipperId})}"
+                                   th:if="${shipper.cartDependencies == 0 && shipper.orderDependencies == 0}">Delete</a>
+                                <a class="disable-action-button"
+                                   th:if="${shipper.cartDependencies > 0 || shipper.orderDependencies > 0}">Delete</a>
+                                <a class="action-button"
+                                   th:href="@{/shipper/stopService(shipperId = ${shipper.shipperId})}"
+                                   th:if="${shipper.service == true}">Stop Service</a>
+                                <a class="disable-action-button" th:if="${shipper.service == false}">Stop Service</a>
+                            </div>
+                        </td>
+                        <td th:text="${shipper.name}"></td>
+                        <td th:text="${#numbers.formatCurrency(shipper.price)}"></td>
+                        <td th:text="${shipper.service}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div th:text="|Page ${page} of ${totalPage}|"></div>
+                    <div th:if="${totalPage != 0}">
+                        <a th:each="currentPage : ${#numbers.sequence(1, totalPage)}"
+                           th:text="${currentPage}"
+                           th:href="@{/shipper/index(page = ${currentPage})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+    <div th:replace="~{/shipper/shipper-form :: popup-form}"></div>
+    <script th:src="@{/js/shipper/index.js}"></script>
+</div>
+</body>
+</html>

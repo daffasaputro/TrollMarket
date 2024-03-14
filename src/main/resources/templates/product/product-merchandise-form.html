@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Merchandise</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <form class="post-form" method="post" th:action="@{/product/merchandise/upsert}">
+            <h1 class="title">Merchandise Form</h1>
+            <input type="hidden" th:field="${sellerProductUpsertDTO.productId}">
+            <input type="hidden" th:field="${sellerProductUpsertDTO.sellerUsername}">
+            <div class="post-input">
+                <label>Name</label>
+                <input type="text" th:field="${sellerProductUpsertDTO.name}">
+                <div class="error-message" th:errors="${sellerProductUpsertDTO.name}"></div>
+            </div>
+            <div class="post-input">
+                <label>Category</label>
+                <input type="text" th:field="${sellerProductUpsertDTO.category}">
+                <div class="error-message" th:errors="${sellerProductUpsertDTO.category}"></div>
+            </div>
+            <div class="post-input">
+                <label>Description</label>
+                <input type="text" th:field="${sellerProductUpsertDTO.description}">
+                <div class="error-message" th:errors="${sellerProductUpsertDTO.description}"></div>
+            </div>
+            <div class="post-input">
+                <label>Price</label>
+                <input type="text" th:field="${sellerProductUpsertDTO.price}">
+                <div class="error-message" th:errors="${sellerProductUpsertDTO.price}"></div>
+            </div>
+            <div class="post-input">
+                <label>Discontinue</label>
+                <input type="checkbox" value="true" th:field="${sellerProductUpsertDTO.discontinue}">
+            </div>
+            <div class="post-button">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+</div>
+</body>
+</html>

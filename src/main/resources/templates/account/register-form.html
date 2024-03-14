@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+    <title>Sign In</title>
+</head>
+<body class="authentication-body">
+<div class="authentication-wrapper">
+    <main>
+        <h1 th:text="|Sign Up for ${accountRegisterDTO.role}|">Sign Up</h1>
+        <form method="post" th:action="@{/account/register}">
+            <input type="hidden" th:field="${accountRegisterDTO.role}">
+            <input type="text" placeholder="Username" th:field="${accountRegisterDTO.username}">
+            <div class="field-validation-error" th:errors="${accountRegisterDTO.username}"></div>
+            <input type="password" placeholder="Password" th:field="${accountRegisterDTO.password}">
+            <div class="field-validation-error" th:errors="${accountRegisterDTO.password}"></div>
+            <input type="password" placeholder="Confirm password" th:field="${accountRegisterDTO.passwordConfirmation}">
+            <div class="field-validation-error" th:errors="${accountRegisterDTO}"></div>
+            <input type="text" placeholder="Name" th:field="${accountRegisterDTO.name}">
+            <div class="field-validation-error" th:errors="${accountRegisterDTO.name}"></div>
+            <textarea placeholder="Address" th:field="${accountRegisterDTO.address}"></textarea>
+            <div class="field-validation-error" th:errors="${accountRegisterDTO.address}"></div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="register-container">
+            <a th:href="@{/account/loginForm}">Click here to login</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

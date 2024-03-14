@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Shop</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <div class="user-list">
+            <h1 class="title">Shop</h1>
+            <form class="search-form column-form" method="get"
+                  th:action="@{/product/shop(productName = ${productName},
+                  productCategory = ${productCategory},
+                  productDescription = ${productDescription})}">
+                <input type="text" placeholder="Name..." name="productName" th:value="${productName}">
+                <input type="text" placeholder="Category..." name="productCategory" th:value="${productCategory}">
+                <input type="text" placeholder="Description..." name="productDescription"
+                       th:value="${productDescription}">
+                <button type="submit">Search</button>
+            </form>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${productDataDTO}">
+                        <td>
+                            <div class="action">
+                                <a class="action-button add-to-cart-button"
+                                   th:attr="productId=${product.productId},
+                                buyerUsername=${#authentication.getPrincipal().getUsername()}">Add to Cart</a>
+                                <a class="action-button detail-button"
+                                   th:attr="productId=${product.productId}">Detail Info</a>
+                            </div>
+                        </td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${#numbers.formatCurrency(product.price)}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div th:text="|Page ${page} of ${totalPage}|"></div>
+                    <div th:if="${totalPage != 0}">
+                        <a th:each="currentPage : ${#numbers.sequence(1, totalPage)}"
+                           th:text="${currentPage}"
+                           th:href="@{/product/shop(productName = ${productName},
+                           productCategory = ${productCategory},
+                           productDescription = ${productDescription},
+                           page = ${currentPage})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+    <div th:replace="~{/product/product-shop-detail :: popup-box}"></div>
+    <div th:replace="~{/product/product-shop-form :: popup-form}"></div>
+</div>
+</body>
+<script th:src="@{/js/product/shop.js}"></script>
+</html>

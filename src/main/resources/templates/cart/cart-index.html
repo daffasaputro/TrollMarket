@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Cart</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main th:if="${#authentication.getPrincipal().getUsername() == buyerUsername}">
+        <div class="user-list">
+            <h1 class="title">Cart</h1>
+            <div th:if="${cartProductCount > 0}">
+                <a class="insert-button" th:href="@{/cart/purchase(buyerUsername = ${buyerUsername})}">Purchase All</a>
+                <p class="purchase-error"
+                   th:text="|You need ${#numbers.formatCurrency(price)} more to buy this products|"
+                   th:if="${price != null}"></p>
+                <div class="content">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Shipper</th>
+                            <th>Seller</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="cart : ${cartDataDTO}">
+                            <td>
+                                <div class="action">
+                                    <a class="action-button edit-button"
+                                       th:href="@{/cart/delete(cartId = ${cart.cartId},
+                                   buyerUsername = ${buyerUsername})}">Remove</a>
+                                </div>
+                            </td>
+                            <td th:text="${cart.productName}"></td>
+                            <td th:text="${cart.quantity}"></td>
+                            <td th:text="${cart.shipperName}"></td>
+                            <td th:text="${cart.sellerName}"></td>
+                            <td th:text="${#numbers.formatCurrency(cart.totalPrice)}"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total Price</td>
+                            <td th:text="${#numbers.formatCurrency(totalPrice)}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="empty-cart-container" th:if="${cartProductCount == 0}">
+                <p>Your cart is empty</p>
+                <a class="browse-product-button" th:href="@{/product/shop}">Browse Product</a>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+</div>
+</body>
+</html>

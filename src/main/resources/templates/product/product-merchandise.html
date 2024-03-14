@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Merchandise</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main th:if="${#authentication.getPrincipal().getUsername() == sellerUsername}">
+        <div class="user-list">
+            <h1 class="title">Merchandise</h1>
+            <a class="insert-button"
+               th:href="@{/product/merchandise/insertForm}">Add New Product</a>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Discontinue</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${sellerProductDataDTO}">
+                        <td>
+                            <div class="action">
+                                <a class="action-button"
+                                   th:href="@{/product/merchandise/updateForm(productId = ${product.productId})}"
+                                th:if="${product.cartDependencies == 0 && product.orderDependencies == 0}">Edit</a>
+                                <a class="disable-action-button"
+                                   th:if="${product.cartDependencies > 0 || product.orderDependencies > 0}">Edit</a>
+                                <a class="action-button"
+                                   th:href="@{/product/merchandise/delete(productId = ${product.productId})}"
+                                   th:if="${product.cartDependencies == 0 && product.orderDependencies == 0}">Delete</a>
+                                <a class="disable-action-button"
+                                   th:if="${product.cartDependencies > 0 || product.orderDependencies > 0}">Delete</a>
+                                <a class="action-button detail-button" th:attr="productId=${product.productId}">Info</a>
+                                <a class="action-button"
+                                   th:href="@{/product/merchandise/discontinue(productId = ${product.productId},
+                                   sellerUsername = ${sellerUsername})}"
+                                   th:if="${product.discontinue} == false">Discontinue</a>
+                                <a class="disable-action-button"
+                                   th:if="${product.discontinue} == true">Discontinue</a>
+                            </div>
+                        </td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.category}"></td>
+                        <td th:text="${product.discontinue}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div th:text="|Page ${page} of ${totalPage}|"></div>
+                    <div th:if="${totalPage != 0}">
+                        <a th:each="currentPage : ${#numbers.sequence(1, totalPage)}"
+                           th:text="${currentPage}"
+                           th:href="@{/product/merchandise(sellerUsername = ${sellerUsername},
+                           page = ${currentPage})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+    <div th:replace="~{/product/product-merchandise-detail :: popup-box}"></div>
+</div>
+</body>
+<script th:src="@{/js/product/merchandise.js}"></script>
+</html>

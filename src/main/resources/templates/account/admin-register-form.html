@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Admin</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <form class="post-form" method="post" th:action="@{/account/adminRegister}">
+            <h1 class="title">Add New Admin</h1>
+            <input type="hidden" th:field="${accountRegisterDTO.role}">
+            <input type="hidden" th:field="${accountRegisterDTO.name}">
+            <input type="hidden" th:field="${accountRegisterDTO.address}">
+            <div class="post-input">
+                <label>Username</label>
+                <input type="text" th:field="${accountRegisterDTO.username}">
+                <div class="error-message" th:errors="${accountRegisterDTO.username}"></div>
+            </div>
+            <div class="post-input">
+                <label>Password</label>
+                <input type="password" th:field="${accountRegisterDTO.password}">
+                <div class="error-message" th:errors="${accountRegisterDTO.password}"></div>
+            </div>
+            <div class="post-input">
+                <label>Confirm Password</label>
+                <input type="password" th:field="${accountRegisterDTO.passwordConfirmation}">
+                <div class="error-message" th:errors="${accountRegisterDTO.passwordConfirmation}"></div>
+                <div class="error-message" th:errors="${accountRegisterDTO}"></div>
+            </div>
+            <div class="post-button">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+</div>
+</body>
+</html>

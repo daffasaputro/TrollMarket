@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Book</title>
+</head>
+<body>
+<div class="form-popup-layer" th:fragment="popup-form">
+    <div class="form-popup-box">
+        <form class="post-form">
+            <input type="hidden" class="product-id">
+            <input type="hidden" class="buyer-username">
+            <div class="post-input">
+                <label>Quantity</label>
+                <div class="error-group">
+                    <input type="text" class="quantity">
+                    <div class="error-message-popup" data-for="quantity"></div>
+                </div>
+            </div>
+            <div class="post-input">
+                <label>Shipper</label>
+                <div class="error-group">
+                    <select class="shipper"></select>
+                    <div class="error-message-popup" data-for="shipper"></div>
+                </div>
+            </div>
+            <div class="post-button">
+                <button type="submit" class="popup-save-button">Save</button>
+                <button type="button" class="popup-close-button">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

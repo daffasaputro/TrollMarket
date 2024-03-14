@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+    <title>Sign In</title>
+</head>
+<body class="authentication-body">
+<div class="authentication-wrapper">
+    <main>
+        <h1>Sign In</h1>
+        <form method="post" th:action="@{/authenticating}">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">sign in</button>
+        </form>
+        <div class="register-container">
+            <a th:href="@{/account/registerForm(role = Seller)}">Register for seller</a>
+            <a th:href="@{/account/registerForm(role = Buyer)}">Register for buyer</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

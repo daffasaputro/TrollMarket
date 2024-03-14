@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Profile</title>
+</head>
+<body>
+<div class="form-popup-layer" th:fragment="popup-form">
+    <div class="form-popup-box">
+        <form class="post-form">
+            <div class="post-input">
+                <label>Insert amount</label>
+                <div class="error-group">
+                    <input type="text" class="topup-amount">
+                    <div class="error-message-popup"></div>
+                </div>
+            </div>
+            <div class="post-button">
+                <button type="submit" class="popup-save-button" th:attr="username=${username}">Save</button>
+                <button type="button" class="popup-close-button">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

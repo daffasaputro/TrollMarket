@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchandise</title>
+</head>
+<body>
+<div class="box-popup-layer" th:fragment="popup-box">
+    <div class="box-popup-list">
+        <div class="list-group">
+            <label>Name</label>
+            <p class="name"></p>
+        </div>
+        <div class="list-group">
+            <label>Category</label>
+            <p class="category"></p>
+        </div>
+        <div class="list-group">
+            <label>Description</label>
+            <p class="description"></p>
+        </div>
+        <div class="list-group">
+            <label>Price</label>
+            <p class="price"></p>
+        </div>
+        <div class="list-group">
+            <label>Discontinue</label>
+            <p class="discontinue"></p>
+        </div>
+        <div class="button-group">
+            <button class="popup-close-button">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
